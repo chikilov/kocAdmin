@@ -13,9 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							if (data == 0)
 								location.href="/<?php echo ROOTPATH; ?>/index.php/admin/adminmain";
 							else if (data == 1)
-								location.href="lazenca.php";
+								$("#mbox").html("Sorry, Incorrect username or password." );
 							else if (data == 2)
-								location.href="cybernator.php";
+								$("#mbox").html("Sorry, Incorrect username or password." );
 							else
 								$("#mbox").html("Sorry, Incorrect username or password." );
 						}

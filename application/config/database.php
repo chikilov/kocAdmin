@@ -82,7 +82,7 @@ switch (ENVIRONMENT)
 		$db['koc_account'] = array();
 		$db['koc_rank'] = array();
 		$db['koc_mail'] = array();
-
+	break;
 	case 'staging':
 		$db['default'] = array(
 			'dsn'	=> '',
@@ -281,6 +281,7 @@ switch (ENVIRONMENT)
 			'failover' => array(),
 			'save_queries' => TRUE
 		);
+	break;
 	default:
 		$db['default'] = array(
 			'dsn'	=> '',
