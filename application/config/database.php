@@ -82,6 +82,205 @@ switch (ENVIRONMENT)
 		$db['koc_account'] = array();
 		$db['koc_rank'] = array();
 		$db['koc_mail'] = array();
+
+	case 'staging':
+		$db['default'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_manage',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_manage'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_manage',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_play'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_play',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_account'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-login-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_account',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_rank'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_rank',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_record'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_record',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_mail'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_mail',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['koc_ref'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_ref',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
+
+		$db['log'] = array(
+			'dsn'	=> '',
+			'hostname' => 'rh-log-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78',
+			'database' => 'koc_play',
+			'dbdriver' => 'mysqli',
+			'dbprefix' => '',
+			'pconnect' => FALSE,
+			'db_debug' => (ENVIRONMENT !== 'production'),
+			'cache_on' => FALSE,
+			'cachedir' => '',
+			'char_set' => 'utf8',
+			'dbcollat' => 'utf8_general_ci',
+			'swap_pre' => '',
+			'encrypt' => FALSE,
+			'compress' => FALSE,
+			'stricton' => FALSE,
+			'failover' => array(),
+			'save_queries' => TRUE
+		);
 	default:
 		$db['default'] = array(
 			'dsn'	=> '',
