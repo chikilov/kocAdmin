@@ -2,7 +2,7 @@
 						<!-- START INLINE FORM SAMPLE -->
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<form class="form-inline" role="form" action="<?$_SERVER['PHP_SELF'];?>" method="post">
+								<form class="form-inline" role="form" action="<?php $_SERVER['PHP_SELF'];?>" method="post">
 <?php
 	if ( in_array('pid', $searchtype) )
 	{
