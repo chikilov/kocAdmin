@@ -18,6 +18,10 @@
 					{
 						$(this).parent().addClass('active');
 						$(this).parent().parent().parent().addClass('active');
+						if ( $(this).parent().parent().parent().parent().parent().attr('class') == 'xn-openable' )
+						{
+							$(this).parent().parent().parent().parent().parent().addClass('active');
+						}
 					}
 					else
 					{
@@ -186,17 +190,17 @@
 							<li class="xn-openable">
 								<a href="#"><span class="fa fa-sort-numeric-asc"></span>실시간 랭킹</a>
 								<ul>
-									<li><a href="live_ranking_pvp.php"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
-									<li><a href="live_ranking_pvb.php"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
-									<li><a href="live_ranking_survival.php"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvprankthis"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbrankthis"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/survivalrankthis"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
 								</ul>
 							</li>
 							<li class="xn-openable">
 								<a href="#"><span class="fa fa-sort-numeric-asc"></span>지난 랭킹 조회</a>
 								<ul>
-									<li><a href="last_ranking_pvp.php"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
-									<li><a href="last_ranking_pvb.php"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
-									<li><a href="last_ranking_survival.php"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvpranklast"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbranklast"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
+									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/survivalranklast"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
 								</ul>
 							</li>
 						</ul>
@@ -204,20 +208,20 @@
 					<li class="xn-openable">
 						<a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">로그조회</span></a>
 						<ul>
-							<li><a href="user_detail_log.php"><span class="fa fa-file-o"></span>상세로그</a></li>
-							<li><a href="user_gatcha_log.php"><span class="fa fa-file-o"></span>뽑기로그</a></li>
-							<li><a href="user_exp_log.php"><span class="fa fa-file-o"></span>탐색 로그</a></li>
-							<li><a href="user_pve_log.php"><span class="fa fa-file-o"></span>행성전 로그</a></li>
-							<li><a href="user_pvp_log.php"><span class="fa fa-file-o"></span>일대일 로그</a></li>
-							<li><a href="user_pvb_log.php"><span class="fa fa-file-o"></span>보스전 로그</a></li>
-							<li><a href="user_survival_log.php"><span class="fa fa-file-o"></span>생존모드 로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/basiclog"><span class="fa fa-file-o"></span>상세로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/gatchalog"><span class="fa fa-file-o"></span>뽑기로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/explorationlog"><span class="fa fa-file-o"></span>탐색 로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvelog"><span class="fa fa-file-o"></span>행성전 로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvplog"><span class="fa fa-file-o"></span>일대일 로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvblog"><span class="fa fa-file-o"></span>보스전 로그</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/survivallog"><span class="fa fa-file-o"></span>생존모드 로그</a></li>
 						</ul>
 					</li>
 					<li class="xn-openable">
 						<a href="#"><span class="fa fa-calendar-o"></span> <span class="xn-text">이벤트관리</span></a>
 						<ul>
 							<li><a href="event_setting.php"><span class="fa fa-calendar"></span>이벤트 설정</a></li>
-							<li><a href="cupon.php"><span class="fa fa-ticket"></span>쿠폰 관리</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/coupon/couponlist"><span class="fa fa-ticket"></span>쿠폰 관리</a></li>
 							<!--<li><a href="5star_coupon.php"><span class="fa fa-dollar"></span>5성지급 쿠폰</a></li>-->
 						</ul>
 					</li>

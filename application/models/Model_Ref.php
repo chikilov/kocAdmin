@@ -77,10 +77,26 @@ class Model_Ref extends CI_Model {
 		$query = "select a.result_date, c.".$this->input->cookie('language')." as gatcha, ";
 		$query .= "if(d.".$this->input->cookie('language')." is null, f.".$this->input->cookie('language').", d.".$this->input->cookie('language').") as item, a.grade ";
 		$query .= "from koc_ref.gatcha_result as a left outer join koc_ref.ref_character as b on a.refid = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', a.id) = c.id ";
-		$query .= "left outer join koc_ref.text as d on concat('NG_ARTICLE_', b.implement) = d.id left outer join koc_ref.item as e on a.refid = e.id ";
-		$query .= "left outer join koc_ref.text as f on concat('NG_ARTICLE_', e.id) = f.id where pid = ? ";
+		$query .= "left outer join koc_ref.text as d on d.id = concat('NG_ARTICLE_', b.implement) left outer join koc_ref.item as e on a.refid = e.id ";
+		$query .= "left outer join koc_ref.text as f on f.id = concat('NG_ARTICLE_', e.id) or f.id = concat('NG_ARTICLE_', e.implement) where pid = ? ";
 
 		return $this->DB->query($query, array($pid));
+	}
+
+	public function getgatchalog( $pid, $start_date, $end_date )
+	{
+		$query = "select a.pid, b.".$this->input->cookie('language')." as ticket, concat( '★', a.grade, ' ', ";
+		$query .= "if( d.".$this->input->cookie('language')." is null, if( f.".$this->input->cookie('language')." is null, ";
+		$query .= "g.".$this->input->cookie('language').", f.".$this->input->cookie('language')." ), d.".$this->input->cookie('language')." ) ) as result, a.result_date ";
+		$query .= "from koc_ref.gatcha_result as a left outer join koc_ref.text as b on b.id = concat( 'NG_ARTICLE_', a.id ) ";
+		$query .= "left outer join koc_ref.ref_character as c on a.refid = c.id ";
+		$query .= "left outer join koc_ref.text as d on d.id = concat( 'NG_ARTICLE_', c.implement ) ";
+		$query .= "left outer join koc_ref.item as e on a.refid = e.id ";
+		$query .= "left outer join koc_ref.text as f on f.id = concat( 'NG_ARTICLE_', e.implement ) ";
+		$query .= "left outer join koc_ref.text as g on g.id = concat( 'NG_ARTICLE_', a.refid ) ";
+		$query .= "where pid = ? and result_date between ? and ? ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
 	}
 }
 ?>

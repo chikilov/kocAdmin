@@ -4,7 +4,9 @@ class MY_Controller extends CI_Controller {
 	public $pid;
 	public $name;
 	public $start_date;
+	public $start_time;
 	public $end_date;
+	public $end_time;
 	public $stype;
 	public $svalue;
 	public $result;
@@ -55,6 +57,15 @@ class MY_Controller extends CI_Controller {
 			$this->start_date = date('Y-m-d');
 		}
 
+		if ( $this->input->post('start_time') )
+		{
+			$this->start_time = $this->input->post('start_time');
+		}
+		else
+		{
+			$this->start_time = '00:00:00';
+		}
+
 		if ( $this->input->post('end_date') )
 		{
 			$this->end_date = $this->input->post('end_date');
@@ -62,6 +73,15 @@ class MY_Controller extends CI_Controller {
 		else
 		{
 			$this->end_date = date('Y-m-d');
+		}
+
+		if ( $this->input->post('end_time') )
+		{
+			$this->end_time = $this->input->post('end_time');
+		}
+		else
+		{
+			$this->end_time = '23:59:59';
 		}
 
 		if ( $this->input->post('stype') )

@@ -95,5 +95,36 @@ class Model_Record extends CI_Model {
 
 		return $this->DB->query($query, array($pid, $pid));
 	}
+
+	public function getexplorationlog( $pid, $start_date, $end_date )
+	{
+		$query = "select e.".$this->input->cookie('language').", d.grade, a.cid, a.exp_second, a.start_datetime, a.reward_datetime, a.exp_cost, ";
+		$query .= "a.reward_type, a.reward_value, a.exp_experience, if(b.is_clear = 1, 1, 0) as is_clear, a.is_enemy ";
+		$query .= "from koc_record.exploration as a left outer join koc_record.exploration_group as b on a.exp_group_idx = b.exp_group_idx and a.pid = b.pid ";
+		$query .= "left outer join koc_play.player_character as c on a.cid = c.idx left outer join koc_ref.ref_character as d on c.refid = d.id ";
+		$query .= "left outer join koc_ref.text as e on e.id = concat('NG_ARTICLE_', d.implement) ";
+		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
+
+	public function getpvelog( $pid, $start_date, $end_date )
+	{
+		$query = "select a.stageid, a.start_datetime, a.result_datetime, a.basic_reward_type, a.basic_reward_value, a.random_reward_type, a.random_reward_value, a.additional_reward_type, a.additional_reward_value, ";
+		$query .= "a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.is_clear ";
+		$query .= "from koc_record.pve as a ";
+		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
+
+	public function getpvplog( $pid, $start_date, $end_date )
+	{
+		$query = "select a.start_datetime, a.result_datetime, a.score, a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.enemy_id, a.is_clear ";
+		$query .= "from koc_record.pvp as a ";
+		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
 }
 ?>

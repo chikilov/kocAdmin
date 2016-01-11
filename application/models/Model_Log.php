@@ -79,5 +79,12 @@ class Model_Log extends CI_Model {
 
 		return $this->DB->query($query, array($pid, $start_date, $end_date));
 	}
+
+	public function getbasiclog( $pid, $start_date, $end_date )
+	{
+		$query = "select pid, logcontent, log_datetime from koc_play.player_log".$this->curServer->id." where pid = ? and log_datetime between ? and ? ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
 }
 ?>

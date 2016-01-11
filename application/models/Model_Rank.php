@@ -193,5 +193,137 @@ class Model_Rank extends CI_Model {
 
 		return $this->DB->query($query, array($pid));
 	}
+
+	public function getpvpranklistthis( $pid = null )
+	{
+		$query = "select a.name, a.pid, a.rank, a.score, sum(if(b.is_clear > 0, 1, 0)) as wincount, sum(if(b.is_clear < 0, 1, 0)) as losecount ";
+		$query .= "from koc_rank.pvp as a inner join koc_record.pvp as b on a.pid = b.pid and a.weekseq = b.weekseq ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "group by a.rank, a.pid, a.name, a.score ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
+
+	public function getpvpranklistlast( $pid = null )
+	{
+		$query = "select a.name, a.pid, a.rank, a.score, sum(if(b.is_clear > 0, 1, 0)) as wincount, sum(if(b.is_clear < 0, 1, 0)) as losecount ";
+		$query .= "from koc_rank.pvp_lastweek as a inner join koc_record.pvp as b on a.pid = b.pid and a.weekseq = b.weekseq ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "group by a.rank, a.pid, a.name, a.score ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
+
+	public function getpvbranklistthis( $pid = null )
+	{
+		$query = "select a.pid, a.rank, a.name, a.score, a.rank_datetime, max(b.level) as level ";
+		$query .= "from koc_rank.pvb as a inner join koc_record.pvb as b on a.pid = b.pid and a.weekseq = b.weekseq ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "group by a.pid order by a.rank ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
+
+	public function getpvbranklistlast( $pid = null )
+	{
+		$query = "select a.pid, a.rank, a.name, a.score, a.rank_datetime, max(b.level) as level ";
+		$query .= "from koc_rank.pvb_lastweek as a inner join koc_record.pvb as b on a.pid = b.pid and a.weekseq = b.weekseq ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "group by a.pid order by a.rank ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
+
+	public function getsurvivalranklistthis( $pid = null )
+	{
+		$query = "select name, pid, rank, score ";
+		$query .= "from koc_rank.survival ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "order by rank ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
+
+	public function getsurvivalranklistlast( $pid = null )
+	{
+		$query = "select name, pid, rank, score ";
+		$query .= "from koc_rank.survival_lastweek ";
+
+		if ( $pid )
+		{
+			$query .= "where pid = ? ";
+		}
+
+		$query .= "order by rank ";
+
+		if ( $pid )
+		{
+			return $this->DB->query($query, array($pid));
+		}
+		else
+		{
+			return $this->DB->query($query);
+		}
+	}
 }
 ?>

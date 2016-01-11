@@ -115,5 +115,24 @@ class Model_Account extends CI_Model {
 
 		return $this->DB->query($query, array($svalue));
 	}
+
+	public function getcouponlist()
+	{
+		$query = "select a.group_id, a.reg_datetime, a.coupon_count, a.static_code, a.coupon_type, cast(a.is_valid as unsigned) as is_valid, ";
+		$query .= "left(a.start_date, 10) as start_date, left(a.end_date, 10) as end_date, a.group_name, ";
+		$query .= "group_concat(b.reward_type) as reward_type, group_concat(b.reward_value) as reward_value ";
+		$query .= "from koc_account.coupon_basic_info as a ";
+		$query .= "left outer join koc_account.coupon_reward_info as b on a.group_id = b.group_id ";
+		$query .= "group by a.group_id, a.reg_datetime, a.coupon_count, a.static_code, a.coupon_type, a.is_valid, a.start_date, a.end_date, a.group_name ";
+
+		return $this->DB->query($query);
+	}
+
+	public function getcoupondetail($group_idx)
+	{
+		$query = "select coupon_id, coupon_user_id, coupon_use_datetime from koc_account.coupon_detail_info where group_id = ? ";
+
+		return $this->DB->query($query, array($group_idx));
+	}
 }
 ?>

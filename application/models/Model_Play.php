@@ -88,9 +88,10 @@ class Model_Play extends CI_Model {
 
 	public function getCharById( $cid )
 	{
-		$query = "select a.idx, a.pid, if(b.".$this->input->cookie('language')." = '' or b.".$this->input->cookie('language')." is null, ";
-		$query .= "a.refid, b.".$this->input->cookie('language').") as ".$this->input->cookie('language').", a.grade, a.level, a.exp, a.up_grade, a.weapon, a.backpack, a.skill_0, a.skill_1, a.skill_2, ";
-		$query .= "if(a.is_del=0,'생존','소멸') as is_del, a.reg_date, a.del_date from koc_play.player_character as a left outer join koc_manage.text as b on concat('NG_ARTICLE_', a.refid) = b.id where a.idx = ? ";
+		$query = "select a.idx, a.pid, if(c.".$this->input->cookie('language')." = '' or c.".$this->input->cookie('language')." is null, ";
+		$query .= "a.refid, c.".$this->input->cookie('language').") as ".$this->input->cookie('language').", a.grade, a.level, a.exp, a.up_grade, a.weapon, a.backpack, a.skill_0, a.skill_1, a.skill_2, ";
+		$query .= "if(a.is_del=0,'생존','소멸') as is_del, a.reg_date, a.del_date from koc_play.player_character as a left outer join koc_ref.ref_character as b on a.refid = b.id ";
+		$query .= "left outer join koc_manage.text as c on c.id = concat('NG_ARTICLE_', b.implement) where a.idx = ? ";
 
 		return $this->DB->query($query, array($cid));
 	}
@@ -121,39 +122,39 @@ class Model_Play extends CI_Model {
 		$query = "select team_seq, ifnull(max(if(a.memb_0 = b.idx, e.".$this->input->cookie('language').", null)), '-') as ref_0, ifnull(a.memb_0, '-') as memb_0, ";
 		$query .= "ifnull(max(if(a.memb_1 = b.idx, e.".$this->input->cookie('language').", null)), '-') as ref_1, ifnull(a.memb_1, '-') as memb_1, ";
 		$query .= "ifnull(max(if(a.memb_2 = b.idx, e.".$this->input->cookie('language').", null)), '-') as ref_2, ifnull(a.memb_2, '-') as memb_2, ";
-		$query .= "ifnull(max(if(a.pilot_0 = c.idx, f.".$this->input->cookie('language').", null)), '-') as pilot_0, ifnull(a.pilot_0, '-') as pi_0, ";
-		$query .= "ifnull(max(if(a.pilot_1 = c.idx, f.".$this->input->cookie('language').", null)), '-') as pilot_1, ifnull(a.pilot_1, '-') as pi_1, ";
-		$query .= "ifnull(max(if(a.pilot_2 = c.idx, f.".$this->input->cookie('language').", null)), '-') as pilot_2, ifnull(a.pilot_2, '-') as pi_2, ";
+		$query .= "ifnull(max(if(a.pilot_0 = c.idx, g.".$this->input->cookie('language').", null)), '-') as pilot_0, ifnull(a.pilot_0, '-') as pi_0, ";
+		$query .= "ifnull(max(if(a.pilot_1 = c.idx, g.".$this->input->cookie('language').", null)), '-') as pilot_1, ifnull(a.pilot_1, '-') as pi_1, ";
+		$query .= "ifnull(max(if(a.pilot_2 = c.idx, g.".$this->input->cookie('language').", null)), '-') as pilot_2, ifnull(a.pilot_2, '-') as pi_2, ";
 		$query .= "ifnull(max(if(b.idx = a.memb_0, b.grade, null)), '-') as grd_0, ifnull(max(if(b.idx = a.memb_1, b.grade, null)), '-') as grd_1, ifnull(max(if(b.idx = a.memb_2, b.grade, null)), '-') as grd_2, ";
 		$query .= "ifnull(max(if(b.idx = a.memb_0, b.level, null)), '-') as level_0, ifnull(max(if(b.idx = a.memb_1, b.level, null)), '-') as level_1, ifnull(max(if(b.idx = a.memb_2, b.level, null)), '-') as level_2, ";
 		$query .= "ifnull(max(if(b.idx = a.memb_0, b.up_grade, null)), '-') as upgrade_0, ifnull(max(if(b.idx = a.memb_1, b.up_grade, null)), '-') as upgrade_1, ifnull(max(if(b.idx = a.memb_2, b.up_grade, null)), '-') as upgrade_2, ";
-		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, f.".$this->input->cookie('language').", null)), '-') as weapon_0, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.idx, null)), '-') as wep_0, ";
+		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, g.".$this->input->cookie('language').", null)), '-') as weapon_0, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.idx, null)), '-') as wep_0, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as wup_0, ";
-		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_1, f.".$this->input->cookie('language').", null)), '-') as weapon_1, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_1, c.idx, null)), '-') as wep_1, ";
+		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_1, g.".$this->input->cookie('language').", null)), '-') as weapon_1, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_1, c.idx, null)), '-') as wep_1, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as wup_1, ";
-		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_2, f.".$this->input->cookie('language').", null)), '-') as weapon_2, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_2, c.idx, null)), '-') as wep_2, ";
+		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_2, g.".$this->input->cookie('language').", null)), '-') as weapon_2, ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_2, c.idx, null)), '-') as wep_2, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as wup_2, ";
-		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_0, f.".$this->input->cookie('language').", null)), '-') as backpack_0, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_0, c.idx, null)), '-') as bp_0, ";
+		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_0, g.".$this->input->cookie('language').", null)), '-') as backpack_0, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_0, c.idx, null)), '-') as bp_0, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as bup_0, ";
-		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_1, f.".$this->input->cookie('language').", null)), '-') as backpack_1, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_1, c.idx, null)), '-') as bp_1, ";
+		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_1, g.".$this->input->cookie('language').", null)), '-') as backpack_1, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_1, c.idx, null)), '-') as bp_1, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as bup_1, ";
-		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_2, f.".$this->input->cookie('language').", null)), '-') as backpack_2, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_2, c.idx, null)), '-') as bp_2, ";
+		$query .= "ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_2, g.".$this->input->cookie('language').", null)), '-') as backpack_2, ifnull(max(if(c.idx = b.backpack and b.idx = a.memb_2, c.idx, null)), '-') as bp_2, ";
 		$query .= "ifnull(max(if(c.idx = b.weapon and b.idx = a.memb_0, c.up_grade, null)), '-') as bup_2, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_0, g.".$this->input->cookie('language').", null)), '-') as skill_00, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_0, c.idx, null)), '-') as skl_00, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_0, g.".$this->input->cookie('language').", null)), '-') as skill_01, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_0, c.idx, null)), '-') as skl_01, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_0, g.".$this->input->cookie('language').", null)), '-') as skill_02, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_0, c.idx, null)), '-') as skl_02, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_1, g.".$this->input->cookie('language').", null)), '-') as skill_10, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_1, c.idx, null)), '-') as skl_10, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_1, g.".$this->input->cookie('language').", null)), '-') as skill_11, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_1, c.idx, null)), '-') as skl_11, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_1, g.".$this->input->cookie('language').", null)), '-') as skill_12, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_1, c.idx, null)), '-') as skl_12, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_2, g.".$this->input->cookie('language').", null)), '-') as skill_20, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_2, c.idx, null)), '-') as skl_20, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_2, g.".$this->input->cookie('language').", null)), '-') as skill_21, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_2, c.idx, null)), '-') as skl_21, ";
-		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_2, g.".$this->input->cookie('language').", null)), '-') as skill_22, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_2, c.idx, null)), '-') as skl_22 ";
+		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_0, h.".$this->input->cookie('language').", null)), '-') as skill_00, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_0, c.idx, null)), '-') as skl_00, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_0, h.".$this->input->cookie('language').", null)), '-') as skill_01, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_0, c.idx, null)), '-') as skl_01, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_0, h.".$this->input->cookie('language').", null)), '-') as skill_02, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_0, c.idx, null)), '-') as skl_02, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_1, h.".$this->input->cookie('language').", null)), '-') as skill_10, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_1, c.idx, null)), '-') as skl_10, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_1, h.".$this->input->cookie('language').", null)), '-') as skill_11, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_1, c.idx, null)), '-') as skl_11, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_1, h.".$this->input->cookie('language').", null)), '-') as skill_12, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_1, c.idx, null)), '-') as skl_12, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_2, h.".$this->input->cookie('language').", null)), '-') as skill_20, ifnull(max(if(c.idx = b.skill_0 and b.idx = a.memb_2, c.idx, null)), '-') as skl_20, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_2, h.".$this->input->cookie('language').", null)), '-') as skill_21, ifnull(max(if(c.idx = b.skill_1 and b.idx = a.memb_2, c.idx, null)), '-') as skl_21, ";
+		$query .= "ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_2, h.".$this->input->cookie('language').", null)), '-') as skill_22, ifnull(max(if(c.idx = b.skill_2 and b.idx = a.memb_2, c.idx, null)), '-') as skl_22 ";
 		$query .= "from koc_play.player_team as a left outer join koc_play.player_character as b on b.pid = a.pid and (a.memb_0 = b.idx or a.memb_1 = b.idx or a.memb_2 = b.idx) ";
 		$query .= "left outer join koc_play.player_inventory as c on c.pid = a.pid and ";
 		$query .= "(a.pilot_0 = c.idx or a.pilot_1 = c.idx or a.pilot_2 = c.idx or b.weapon = c.idx or b.backpack = c.idx or b.skill_0 = c.idx or b.skill_1 = c.idx or b.skill_2 = c.idx) ";
-		$query .= "left outer join koc_ref.ref_character as d on b.refid = d.id ";
-		$query .= "left outer join koc_ref.text as e on concat('NG_ARTICLE_', d.implement) = e.id left outer join koc_ref.text as f on concat('NG_ARTICLE_', c.refid) = f.id ";
-		$query .= "left outer join koc_ref.text as g on concat('NG_ARTICLE_', c.refid) = g.id ";
+		$query .= "left outer join koc_ref.ref_character as d on b.refid = d.id left outer join koc_ref.text as e on concat('NG_ARTICLE_', d.implement) = e.id ";
+		$query .= "left outer join koc_ref.item as f on c.refid = f.id left outer join koc_ref.text as g on concat('NG_ARTICLE_', f.implement) = g.id ";
+		$query .= "left outer join koc_ref.text as h on concat('NG_ARTICLE_', c.refid) = h.id ";
 		$query .= "where a.pid = ? group by a.team_seq ";
 
 		return $this->DB->query($query, array($pid));
@@ -180,12 +181,12 @@ class Model_Play extends CI_Model {
 	{
 		$query = "select a.pid, if( a.affiliate_name != '', concat(a.name, '(', a.affiliate_name, ')'), a.name) as name, ";
 		$query .= "b.idx, e.".$this->input->cookie('language')." as charname, b.refid, b.grade, b.level, b.up_grade, ";
-		$query .= "ifnull(max(if(d.idx = b.weapon, d.idx, null)), '-') as weapon, ifnull(max(if(d.idx = b.weapon, f.".$this->input->cookie('language').", null)), '-') as weapon_name, ";
-		$query .= "ifnull(max(if(d.idx = b.backpack, d.idx, null)), '-') as backpack, ifnull(max(if(d.idx = b.backpack, f.".$this->input->cookie('language').", null)), '-') as backpack_name, ";
-		$query .= "ifnull(max(if(d.idx = b.skill_0, d.idx, null)), '-') as skill_0, ifnull(max(if(d.idx = b.skill_0, g.".$this->input->cookie('language').", null)), '-') as skill_0_name, ";
-		$query .= "ifnull(max(if(d.idx = b.skill_1, d.idx, null)), '-') as skill_1, ifnull(max(if(d.idx = b.skill_1, g.".$this->input->cookie('language').", null)), '-') as skill_1_name, ";
-		$query .= "ifnull(max(if(d.idx = b.skill_2, d.idx, null)), '-') as skill_2, ifnull(max(if(d.idx = b.skill_2, g.".$this->input->cookie('language').", null)), '-') as skill_2_name, ";
-		$query .= "if( h.team_seq = 0, 'A', if( h.team_seq = 1, 'B', if( h.team_seq = 2, 'C', if( exp_idx is not null, '탐색', '-' ) ) ) ) as team, ";
+		$query .= "ifnull(max(if(d.idx = b.weapon, d.idx, null)), '-') as weapon, ifnull(max(if(d.idx = b.weapon, g.".$this->input->cookie('language').", null)), '-') as weapon_name, ";
+		$query .= "ifnull(max(if(d.idx = b.backpack, d.idx, null)), '-') as backpack, ifnull(max(if(d.idx = b.backpack, g.".$this->input->cookie('language').", null)), '-') as backpack_name, ";
+		$query .= "ifnull(max(if(d.idx = b.skill_0, d.idx, null)), '-') as skill_0, ifnull(max(if(d.idx = b.skill_0, h.".$this->input->cookie('language').", null)), '-') as skill_0_name, ";
+		$query .= "ifnull(max(if(d.idx = b.skill_1, d.idx, null)), '-') as skill_1, ifnull(max(if(d.idx = b.skill_1, h.".$this->input->cookie('language').", null)), '-') as skill_1_name, ";
+		$query .= "ifnull(max(if(d.idx = b.skill_2, d.idx, null)), '-') as skill_2, ifnull(max(if(d.idx = b.skill_2, h.".$this->input->cookie('language').", null)), '-') as skill_2_name, ";
+		$query .= "if( i.team_seq = 0, 'A', if( i.team_seq = 1, 'B', if( i.team_seq = 2, 'C', if( exp_idx is not null, '탐색', '-' ) ) ) ) as team, ";
 		$query .= "exp_group_idx, exp_idx, exp_time ";
 		$query .= "from koc_play.player_basic as a ";
 		$query .= "left outer join koc_play.player_character as b on a.pid = b.pid ";
@@ -193,10 +194,10 @@ class Model_Play extends CI_Model {
 		$query .= "left outer join koc_play.player_inventory as d on a.pid = d.pid ";
 		$query .= "and ( b.weapon = d.idx or b.backpack = d.idx or b.skill_0 = d.idx or b.skill_1 = d.idx or b.skill_2 = d.idx ) ";
 		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', c.implement ) = e.id ";
-		$query .= "left outer join koc_ref.text as f on concat( 'NG_ARTICLE_', d.refid ) = f.id ";
-		$query .= "left outer join koc_ref.text as g on concat( 'NG_ARTICLE_', d.refid ) = g.id ";
-		$query .= "left outer join koc_play.player_team as h on a.pid = h.pid ";
-		$query .= "and ( b.idx = h.memb_0 or b.idx = h.memb_1 or b.idx = h.memb_2 ) ";
+		$query .= "left outer join koc_ref.item as f on d.refid = f.id ";
+		$query .= "left outer join koc_ref.text as g on concat( 'NG_ARTICLE_', f.implement ) = g.id ";
+		$query .= "left outer join koc_ref.text as h on concat( 'NG_ARTICLE_', d.refid ) = h.id ";
+		$query .= "left outer join koc_play.player_team as i on a.pid = i.pid and ( b.idx = i.memb_0 or b.idx = i.memb_1 or b.idx = i.memb_2 ) ";
 		$query .= "where a.pid = ? and b.is_del = 0 ";
 		$query .= "group by a.pid, a.name, a.affiliate_name, b.idx ";
 
@@ -207,14 +208,14 @@ class Model_Play extends CI_Model {
 	{
 		$query = "select a.pid, concat(a.name, '(', a.affiliate_name, ')') as name,b.idx, ";
 		$query .= "if( d.category = 'WEAPON', '무기', if( d.category = 'BACKPACK', '백팩', '스킬') ) as category, ";
-		$query .= "e.".$this->input->cookie('language')." as itemname, d.grade, if( c.idx = max(c.idx), concat(f.".$this->input->cookie('language').", ' ( ', c.idx, ' )'), '') as equip ";
+		$query .= "f.".$this->input->cookie('language')." as itemname, d.grade, if( c.idx = max(c.idx), concat(g.".$this->input->cookie('language').", ' ( ', c.idx, ' )'), '') as equip ";
 		$query .= "from koc_play.player_basic as a ";
 		$query .= "left outer join koc_play.player_inventory as b on a.pid = b.pid ";
-		$query .= "left outer join koc_play.player_character as c on a.pid = c.pid ";
-		$query .= "and ( b.idx = c.weapon or b.idx = c.backpack or b.idx = c.skill_0 or b.idx = c.skill_1 or b.idx = c.skill_2 ) ";
+		$query .= "left outer join koc_play.player_character as c on a.pid = c.pid and ( b.idx = c.weapon or b.idx = c.backpack or b.idx = c.skill_0 or b.idx = c.skill_1 or b.idx = c.skill_2 ) ";
 		$query .= "left outer join koc_ref.item as d on b.refid = d.id ";
-		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', b.refid ) = e.id or concat( 'NG_ARTICLE_', b.refid ) = e.id ";
-		$query .= "left outer join koc_ref.text as f on concat( 'NG_ARTICLE_', c.refid ) = f.id ";
+		$query .= "left outer join koc_ref.ref_character as e on c.refid = e.id ";
+		$query .= "left outer join koc_ref.text as f on concat( 'NG_ARTICLE_', d.implement ) = f.id or concat( 'NG_ARTICLE_', b.refid ) = f.id ";
+		$query .= "left outer join koc_ref.text as g on concat( 'NG_ARTICLE_', e.implement ) = g.id ";
 		$query .= "where a.pid = ? and b.is_del = 0 and ( b.expire is null or b.expire > now() ) ";
 		$query .= "and d.category in ('WEAPON', 'BACKPACK', 'TECHNIQUE') group by a.pid, a.name, a.affiliate_name, b.idx ";
 
@@ -231,7 +232,7 @@ class Model_Play extends CI_Model {
 		$query .= "left outer join koc_play.player_team as c on a.pid = c.pid ";
 		$query .= "and ( b.idx = c.pilot_0 or b.idx = c.pilot_1 or b.idx = c.pilot_2 ) ";
 		$query .= "left outer join koc_ref.item as d on b.refid = d.id ";
-		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', b.refid ) = e.id ";
+		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', d.implement ) = e.id ";
 		$query .= "where a.pid = ? and b.is_del = 0 and ( b.expire is null or b.expire > now() ) ";
 		$query .= "and d.category = 'PILOT' group by a.pid, a.name, a.affiliate_name, b.idx ";
 
@@ -246,7 +247,7 @@ class Model_Play extends CI_Model {
 		$query .= "left outer join koc_play.player_inventory as b on a.pid = b.pid ";
 		$query .= "left outer join koc_play.player_basic as c on a.pid = c.pid and b.idx = c.operator ";
 		$query .= "left outer join koc_ref.item as d on b.refid = d.id ";
-		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', b.refid ) = e.id ";
+		$query .= "left outer join koc_ref.text as e on concat( 'NG_ARTICLE_', d.implement ) = e.id ";
 		$query .= "where a.pid = ?  ";
 		$query .= "and d.category = 'OPERATOR' group by a.pid, a.name, a.affiliate_name, b.idx ";
 

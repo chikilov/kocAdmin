@@ -150,7 +150,9 @@ class Model_Manage extends CI_Model {
 
 	public function getTextById( $idtext )
 	{
-		$query = "select id, ".$this->input->cookie('language')." from koc_ref.text where id like '%".$idtext."%' order by id asc ";
+		$query = "select a.id, a.".$this->input->cookie('language')." ";
+		$query .= "from koc_ref.text as a left join koc_ref.ref_character as b on a.id = concat('NG_ARTICLE_', b.implement) left join koc_ref.item as c on a.id = concat('NG_ARTICLE_', c.implement) ";
+		$query .= "where a.id like '%".$idtext."%' or b.id like '%".$idtext."%' or c.id like '%".$idtext."%' order by a.id asc ";
 
 		return $this->DB->query($query, array($idtext));
 	}
@@ -234,9 +236,10 @@ class Model_Manage extends CI_Model {
 
 	public function requestItemPresent( $type )
 	{
-		$query = "select a.article_type, a.article_id, e.grade, if(a.article_id = 'CASH_POINTS', '구매수정', if( a.article_id = 'EVENT_POINTS', '이벤트수정', b.".$this->input->cookie('language').")) as ".$this->input->cookie('language')." ";
-		$query .= "from koc_ref.article as a left outer join koc_ref.text as b on concat('NG_ARTICLE_', a.article_id) = b.id left outer join koc_ref.item as d on a.article_value = d.id ";
-		$query .= "left join koc_ref.item as e on a.article_id = e.id where a.article_type = '".$type."' and a.article_id != 'EXP_POINTS' order by b.".$this->input->cookie('language')." ";
+		$query = "select a.article_type, a.article_id, b.grade, if(a.article_id = 'CASH_POINTS', '구매수정', if( a.article_id = 'EVENT_POINTS', '이벤트수정', ";
+		$query .= "c.".$this->input->cookie('language').")) as ".$this->input->cookie('language')." ";
+		$query .= "from koc_ref.article as a left join koc_ref.item as b on a.article_id = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', b.implement) = c.id or concat('NG_ARTICLE_', b.id) = c.id ";
+		$query .= "where a.article_type = '".$type."' and a.article_id != 'EXP_POINTS' order by c.".$this->input->cookie('language')." ";
 
 		return $this->DB->query($query);
 	}
