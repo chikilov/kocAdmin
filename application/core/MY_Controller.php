@@ -35,7 +35,7 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->pid = $this->input->post('pid');
 			$this->name = $this->dbPlay->getNameByPid( $this->input->post('pid') )->result_array();
-			if ( is_array( $this->name ) && count( $this->name ) > 1 )
+			if ( is_array( $this->name ) && count( $this->name ) >= 1 )
 			{
 				$this->name = $this->name[0]['name'];
 			}
