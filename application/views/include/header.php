@@ -5,7 +5,7 @@
 ?>
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var page = '<?php echo "http://".$this->input->server('SERVER_NAME').(array_key_exists( $this->input->server('PHP_SELF'), $urlConvert ) ? $urlConvert[$this->input->server('PHP_SELF')] : $this->input->server('PHP_SELF')); ?>';
+				var page = '<?php echo "http://".$this->input->server('SERVER_NAME').(array_key_exists( $this->input->server('REQUEST_URI'), $urlConvert ) ? $urlConvert[$this->input->server('REQUEST_URI')] : $this->input->server('REQUEST_URI')); ?>';
 				var href;
 				$('.x-navigation li a').each(function () {
 					href = this.href;
