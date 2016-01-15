@@ -66,7 +66,7 @@ class Customer extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header');
 
-		$this->load->view('consultview', array('question' => $arrResult1, 'answer' => $arrResult2, 'comTemp' => $arrResult3, 'indTemp' => $arrResult4));
+		$this->load->view('consultview', array('pid' => $arrResult1['appid'], 'question' => $arrResult1, 'answer' => $arrResult2, 'comTemp' => $arrResult3, 'indTemp' => $arrResult4));
 		$this->load->view('include/footer');
 	}
 

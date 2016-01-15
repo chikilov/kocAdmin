@@ -126,4 +126,52 @@ class History extends MY_Controller {
 
 		echo json_encode( $arrResult, JSON_UNESCAPED_UNICODE );
 	}
+
+	public function pvblog()
+	{
+		$this->load->view('include/head');
+		$this->load->view('include/header');
+		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
+		$this->load->view('pvblog');
+		$this->load->view('include/footer');
+	}
+
+	public function getpvblog()
+	{
+		$this->load->model('Model_Record', 'dbRecord');
+		if ( $this->pid )
+		{
+			$arrResult = $this->dbRecord->getpvblog( $this->pid, $this->start_date, $this->end_date )->result_array();
+		}
+		else
+		{
+			$arrResult = array();
+		}
+
+		echo json_encode( $arrResult, JSON_UNESCAPED_UNICODE );
+	}
+
+	public function survivallog()
+	{
+		$this->load->view('include/head');
+		$this->load->view('include/header');
+		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
+		$this->load->view('survivallog');
+		$this->load->view('include/footer');
+	}
+
+	public function getsurvivallog()
+	{
+		$this->load->model('Model_Record', 'dbRecord');
+		if ( $this->pid )
+		{
+			$arrResult = $this->dbRecord->getsurvivallog( $this->pid, $this->start_date, $this->end_date )->result_array();
+		}
+		else
+		{
+			$arrResult = array();
+		}
+
+		echo json_encode( $arrResult, JSON_UNESCAPED_UNICODE );
+	}
 }

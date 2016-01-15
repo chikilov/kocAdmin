@@ -120,8 +120,26 @@ class Model_Record extends CI_Model {
 
 	public function getpvplog( $pid, $start_date, $end_date )
 	{
-		$query = "select a.start_datetime, a.result_datetime, a.score, a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.enemy_id, a.is_clear ";
+		$query = "select a.weekseq, a.start_datetime, a.result_datetime, a.score, a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.enemy_id, a.is_clear ";
 		$query .= "from koc_record.pvp as a ";
+		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
+
+	public function getpvblog( $pid, $start_date, $end_date )
+	{
+		$query = "select a.weekseq, a.start_datetime, a.result_datetime, a.score, a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.level, a.is_clear ";
+		$query .= "from koc_record.pvb as a ";
+		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
+
+		return $this->DB->query($query, array($pid, $start_date, $end_date));
+	}
+
+	public function getsurvivallog( $pid, $start_date, $end_date )
+	{
+		$query = "select a.weekseq, a.start_datetime, a.result_datetime, a.score, a.instant_item1, a.instant_item2, a.instant_item3, a.instant_item4, a.round ";
+		$query .= "from koc_record.survival as a ";
 		$query .= "where a.pid = ? and a.start_datetime between concat(?, ' 00:00:00') and concat(?, ' 23:59:59') ";
 
 		return $this->DB->query($query, array($pid, $start_date, $end_date));

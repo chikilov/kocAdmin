@@ -98,5 +98,25 @@ class Model_Ref extends CI_Model {
 
 		return $this->DB->query($query, array($pid, $start_date, $end_date));
 	}
+
+	public function getgatchalist( $type )
+	{
+		$query = "select a.id, b.".$this->input->cookie('language')." from koc_ref.gatcha as a inner join koc_ref.text as b on b.id = concat('NG_ARTICLE_', a.id) ";
+		$query .= "where a.category = ? group by a.id ";
+
+		return $this->DB->query($query, array($type));
+	}
+
+	public function getgatcharateinfo( $id )
+	{
+		$query = "select a.category, a.id, b.".$this->input->cookie('language')." as gatcha_name, a.reference, e.".$this->input->cookie('language')." as item_name, if( c.id is null, d.grade, c.grade ) as grade, ";
+		$query .= "round(a.probability / (select sum(probability) from koc_ref.gatcha where id = a.id) * 100, 3) as prob ";
+		$query .= "from koc_ref.gatcha as a  left outer join koc_ref.text as b on b.id = concat('NG_ARTICLE_', a.id) ";
+		$query .= "left outer join koc_ref.ref_character as c on a.reference = c.id left outer join koc_ref.item as d on a.reference = d.id ";
+		$query .= "left outer join koc_ref.text as e on e.id = if( c.implement is null, if( d.category = 'BACKPACK' or d.category = 'WEAPON', concat('NG_ARTICLE_', d.implement), concat('NG_ARTICLE_', d.id)), ";
+		$query .= "concat('NG_ARTICLE_', c.implement) ) where a.id = ? ";
+
+		return $this->DB->query($query, array($id));
+	}
 }
 ?>

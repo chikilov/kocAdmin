@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
 	public $result;
 	public $curServer;
 	public $version;
+	public $admin_id;
 
 	function __construct(){
 		parent::__construct();
@@ -21,7 +22,8 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('Model_Play', 'dbPlay');
 		$this->load->model('Model_Account', 'dbAccount');
 
-		$user_id = $this->session->userdata('user_id');
+		$admin_id = $this->session->userdata('user_id');
+//		$user_id = $this->session->userdata('user_id');
 		$user_name = $this->session->userdata('user_name');
 		$user_depart = $this->session->userdata('user_depart');
 		$user_level = $this->session->userdata('user_level');
@@ -33,9 +35,13 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->pid = $this->input->post('pid');
 			$this->name = $this->dbPlay->getNameByPid( $this->input->post('pid') )->result_array();
-			if ( is_array( $this->name ) )
+			if ( is_array( $this->name ) && count( $this->name ) > 1 )
 			{
 				$this->name = $this->name[0]['name'];
+			}
+			else
+			{
+				$this->name = '';
 			}
 		}
 		else if ( $this->input->post('name') )

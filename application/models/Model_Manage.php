@@ -272,5 +272,38 @@ class Model_Manage extends CI_Model {
 		$this->DB->query($query);
 		return $this->DB->affected_rows();
 	}
+
+	public function getaccesseventlist()
+	{
+		$query = "select a.idx, a.start_date, a.end_date, a.reg_id, a.evt_reason, (case when a.evt_category = 'ASST' then '자원' when a.evt_category = 'BCPC' then '백팩' ";
+		$query .= "when a.evt_category = 'BTIK' then '백팩뽑기권' when a.evt_category = 'CHAR' then '캐릭터' when a.evt_category = 'CTIK' then '캐릭터뽑기권' ";
+		$query .= "when a.evt_category = 'OPRT' then '오퍼레이터' when a.evt_category = 'PILT' then '파일럿' when a.evt_category = 'SKIL' then '스킬' ";
+		$query .= "when a.evt_category = 'STIK' then '스킬뽑기권' when a.evt_category = 'WEPN' then '무기' when a.evt_category = 'WTIK' then '무기뽑기권' end) as evt_category, ";
+		$query .= "concat( if(a.evt_category = 'CHAR' or a.evt_category = 'WEPN' or a.evt_category = 'SKIL' or a.evt_category = 'BCPC', ";
+		$query .= "concat('★', if(a.evt_category = 'CHAR', d.grade, c.grade)), ''), b.".$this->input->cookie('language').") as evt_target,	a.evt_value, if(a.is_valid = 0, 0, 1) as is_valid, a.reg_date ";
+		$query .= "from koc_admin.event_access as a left outer join koc_ref.text as b on concat( 'NG_ARTICLE_', a.evt_target ) = b.id ";
+		$query .= "left outer join koc_ref.item as c on a.evt_target = c.id left outer join koc_ref.ref_character as d on a.evt_target = d.id ";
+
+		return $this->DB->query($query);
+	}
+
+	public function requestAccEventInsert( $start_date, $end_date, $evt_category, $evt_target, $evt_value, $evt_reason )
+	{
+		$query = "insert into koc_admin.event_access ";
+		$query .= "( start_date, end_date, evt_category, evt_target, evt_value, evt_reason, is_valid, reg_date, reg_id ) values ";
+		$query .= "(?, ?, ?, ?, ?, ?, 1, now(), ?) ";
+
+		$this->DB->query($query, array( $start_date, $end_date, $evt_category, $evt_target, $evt_value, $evt_reason, $this->admin_id ));
+		return $this->DB->affected_rows();
+	}
+
+	public function requestAccEventStop( $idx )
+	{
+		$query = "update koc_admin.event_access set is_valid = 0, upd_date = now(), upd_id = ? ";
+		$query .= "where idx = '".$idx."' ";
+
+		$this->DB->query($query, array($this->user_id));
+		return $this->DB->affected_rows();
+	}
 }
 ?>

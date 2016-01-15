@@ -4,7 +4,7 @@
 							$('#log_data2').dataTable({
 								"ajax": {
 									"type"   : "POST",
-									"url"    : '/<?php echo ROOTPATH; ?>/index.php/admin/history/getpvplog',
+									"url"    : '/<?php echo ROOTPATH; ?>/index.php/admin/history/getpvblog',
 									"data"   : data,
 									"dataSrc": ""
 								},
@@ -13,6 +13,7 @@
 									{"className" : "text-center", "data" : "weekseq", "searchable": false, "sortable" : false},
 									{"className" : "text-center", "data" : "start_datetime", "searchable": false, "sortable" : false},
 									{"className" : "text-center", "data" : "result_datetime", "sortable" : false},
+									{"className" : "text-center", "data" : "level", "sortable" : false},
 									{"className" : "text-center", "data" : "score", "sortable" : false},
 									{"className" : "text-center", "data" : "instant_item1", "sortable" : false, "render" : function ( data, type, row, meta ) {
 																							var itemString = '';
@@ -23,7 +24,6 @@
 																							return itemString;
 																						}
 									},
-									{"className" : "text-center", "data" : "enemy_id", "sortable" : false},
 									{"className" : "text-center", "data" : "is_clear", "sortable" : false},
 								],
 								"oLanguage": {
@@ -38,7 +38,7 @@
 					<div class="page-content-wrap">
 						<!-- PAGE TITLE -->
 						<div class="page-title">
-							<h2><span class="fa fa-file-o"></span> 1:1대전로그</h2>
+							<h2><span class="fa fa-file-o"></span> 보스전로그</h2>
 						</div>
 						<!-- END PAGE TITLE -->
 						<div class="row">
@@ -47,7 +47,7 @@
 									<!-- START DEFAULT DATATABLE -->
 									<div class="panel panel-default form-horizontal">
 										<div class="panel-heading">
-											<h3 class="panel-title">1:1대전로그</h3>
+											<h3 class="panel-title">보스전로그</h3>
 										</div>
 										<div class="panel-body">
 											<div class="table-responsive">
@@ -57,10 +57,10 @@
 															<th style="width: 10%">주차</th>
 															<th style="width: 20%">시작시간</th>
 															<th style="width: 20%">종료시간</th>
+															<th style="width: 10%">레벨</th>
 															<th style="width: 10%">획득점수</th>
 															<th style="width: 30%">사용아이템</th>
-															<th style="width: 10%">상대 pid</th>
-															<th style="width: 10%">승리여부</th>
+															<th style="width: 10%">클리어여부</th>
 														</tr>
 													</thead>
 													<tbody>

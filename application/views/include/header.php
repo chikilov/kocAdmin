@@ -1,6 +1,11 @@
+<?php
+	$urlConvert =	array (
+							"/kocAdmin/index.php/admin/event/accesseventwrite" => "/kocAdmin/index.php/admin/event/accesseventlist"
+					);
+?>
 		<script type="text/javascript">
 			$(document).ready(function () {
-				var page = '<?php echo "http://".$this->input->server('SERVER_NAME').$this->input->server('PHP_SELF'); ?>';
+				var page = '<?php echo "http://".$this->input->server('SERVER_NAME').(array_key_exists( $this->input->server('PHP_SELF'), $urlConvert ) ? $urlConvert[$this->input->server('PHP_SELF')] : $this->input->server('PHP_SELF')); ?>';
 				var href;
 				$('.x-navigation li a').each(function () {
 					href = this.href;
@@ -220,7 +225,7 @@
 					<li class="xn-openable">
 						<a href="#"><span class="fa fa-calendar-o"></span> <span class="xn-text">이벤트관리</span></a>
 						<ul>
-							<li><a href="event_setting.php"><span class="fa fa-calendar"></span>이벤트 설정</a></li>
+							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/event/accesseventlist"><span class="fa fa-calendar"></span>이벤트 설정</a></li>
 							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/coupon/couponlist"><span class="fa fa-ticket"></span>쿠폰 관리</a></li>
 							<!--<li><a href="5star_coupon.php"><span class="fa fa-dollar"></span>5성지급 쿠폰</a></li>-->
 						</ul>
@@ -289,7 +294,7 @@
 								<!--<li><a href="#"><span class="fa fa-dollar"></span>로그조회</a></li>-->
 							</ul>
 						</li>
-						<li><a href="gatcha_list.php"><span class="fa fa-file-text-o"></span> <span class="xn-text">가챠관리</span></a></li>
+						<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/gatcha/gatchalist"><span class="fa fa-file-text-o"></span> <span class="xn-text">가챠관리</span></a></li>
 						<!--<li class="xn-openable">
 							<a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">정산관리</span></a>
 							<ul>
