@@ -73,7 +73,7 @@ switch (ENVIRONMENT)
 	case 'staging':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
-		define('VERSIONINFO_URL', 'http://'.$_SERVER['SERVER_NAME'].'/koc/version.info');
+		define('VERSIONINFO_URL', 'http://'.$_SERVER['SERVER_NAME'].'/version.info');
 	case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
