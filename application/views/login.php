@@ -42,6 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<select class="validate[required] select btn" id="server">
 <?php
 	$ch = curl_init();
+	echo VERSIONINFO_URL;
 	curl_setopt($ch, CURLOPT_URL, VERSIONINFO_URL);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
@@ -50,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	curl_close ($ch);
 
 	$arrResponse = json_decode(openssl_decrypt(base64_decode($response), "aes-256-cbc", $this->config->item('encryption_key'), true, str_repeat(chr(0), 16)), true);
+	print_r($arrResponse);
 	$version = $arrResponse['arrResult']['version'];
 	$arrResponse = $arrResponse['arrResult']['server'];
 	foreach( $arrResponse as $row )
