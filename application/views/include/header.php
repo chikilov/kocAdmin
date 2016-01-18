@@ -1,4 +1,15 @@
 <?php
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, VERSIONINFO_URL);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	$response = curl_exec($ch);
+	curl_close ($ch);
+
+	$arrResponse = json_decode(openssl_decrypt(base64_decode($response), "aes-256-cbc", $this->config->item('encryption_key'), true, str_repeat(chr(0), 16)), true);
+	$arrResponse = $arrResponse['arrResult']['server'];
+
 	$urlConvert =	array (
 							"/kocAdmin/index.php/admin/event/accesseventwrite" => "/kocAdmin/index.php/admin/event/accesseventlist"
 					);
@@ -61,6 +72,16 @@
 					$.cookie('language', $(this).children('span').attr('class').replace(/flag flag-/gi, ''), { expires: 1/4, path: '/' } );
 					$('#curlang').html($(this).children('span').attr('class').replace(/flag flag-/gi, ''));
 					$('#lang_sel').parent().removeClass('active');
+				});
+
+				$("#server_sel > li > a").on("click", function () {
+					var str = $(this).siblings('.hidden').html();
+					var json = JSON.stringify(eval('(' + str + ')')); //convert to json string
+					var obj = $.parseJSON(json); //convert to javascript array
+					$.removeCookie('server_name', { path: '/' });
+					$.cookie('server_name', str, { expires: 1/4, path: '/' } );
+					$('#curserver').html(obj.name);
+					$('#server_sel').parent().removeClass('active');
 				});
 
 				$(document).on("submit", "#iForm, #tForm", function (e) {
@@ -140,24 +161,13 @@
 								<div class="profile-data-name"><?php echo $this->session->userdata('user_name'); ?></div>
 								<div class="profile-data-title"><?php echo $this->session->userdata('user_depart'); ?></div>
 							</div>
-<?php
-	if ( $this->session->userdata('user_depart') != '외부' )
-	{
-?>
 							<div class="profile-controls">
 								<a href="/<?php echo ROOTPATH; ?>/index.php/admin/adminmain/userinfo" class="profile-control-left"><span class="fa fa-info"></span></a>
 								<!--<a class="profile-control-right"><span class="fa fa-envelope"></span></a>-->
 							</div>
-<?php
-	}
-?>
 						</div>
 					</li>
 					<li class="xn-title">Navigation</li>
-<?php
-	if ( $this->session->userdata('user_depart') != '외부')
-	{
-?>
 					<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/customer/consult"><span class="fa fa-question"></span> <span class="xn-text">고객문의</span></a></li>
 					<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/present/sendpresent"><span class="fa fa-search"></span> <span class="xn-text">상품지급</span></a></li>
 					<li class="xn-openable">
@@ -303,30 +313,6 @@
 								<li><a href="restol.php">레스톨팩</a></li>
 							</ul>
 						</li>-->
-<?php
-	}
-
-	if ( $this->session->userdata('user_level') == 1 )
-	{
-?>
-						<li><a href="lazenca.php"><span class="fa fa-desktop"></span> <span class="xn-text">라젠카팩</span></a></li>
-<?php
-	}
-
-	if ( $this->session->userdata('user_level') == 2 )
-	{
-?>
-						<li><a href="cybernator.php"><span class="fa fa-desktop"></span> <span class="xn-text">발켄팩</span></a></li>
-<?php
-	}
-
-	if ( $this->session->userdata('user_level') == 3 )
-	{
-?>
-						<li><a href="restol.php"><span class="fa fa-desktop"></span> <span class="xn-text">레스톨팩</span></a></li>
-<?php
-	}
-?>
 					</ul>
 					<!-- END X-NAVIGATION -->
 				</div>
@@ -338,10 +324,6 @@
 						<!-- TOGGLE NAVIGATION -->
 						<li class="xn-icon-button"><a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a></li>
 						<!-- END TOGGLE NAVIGATION -->
-<?php
-	if ( $this->session->userdata('user_depart') != '외부' )
-	{
-?>
 						<!-- SEARCH -->
 						<li class="xn-search">
 							<form role="form" id="pForm" action="user_basic.php" method="get">
@@ -364,11 +346,8 @@
 							</form>
 						</li>
 						<!-- END SEARCH -->
-<?php
-	}
-?>
 						<!-- POWER OFF -->
-						<li class="xn-icon-button pull-right last">
+						<li class="xn-icon-button pull-right">
 							<a href="#"><span class="fa fa-power-off"></span></a>
 							<ul class="xn-drop-left animated zoomIn">
 								<!--<li><a href="user_profile.php"><span class="fa fa-user"></span> User Info</a></li>
@@ -377,10 +356,6 @@
 							</ul>
 						</li>
 						<!-- END POWER OFF -->
-<?php
-	if( $this->session->userdata('user_depart') != '외부' )
-	{
-?>
 						<!-- MESSAGES -->
 						<!--<li id="messege_aa" class="xn-icon-button pull-right">
 							<a id="messege_ss"  href="#"><span class="fa fa-comments"></span></a>
@@ -430,8 +405,21 @@
 							</ul>
 						</li>
 						<!-- END LANG BAR -->
+						<!-- SERVER BAR -->
+						<li class="xn-icon-button pull-right last">
+							<a href="#"><span class="fa fa-refresh"></span></span></a>
+							<div class="informer informer-warning"><div id="curserver"><?php echo json_decode($this->input->cookie('server_name'), true)['name']; ?></div></div>
+							<ul id="server_sel" class="xn-drop-left xn-drop-white animated zoomIn">
+<?php
+	foreach( $arrResponse as $row )
+	{
+?>
+									<li><a style="cursor: pointer;"><span class="flag"></span><?php echo $row['name']?></a><span class="hidden"><?php echo json_encode($row, JSON_UNESCAPED_SLASHES)?></span></li>
 <?php
 	}
 ?>
+							</ul>
+						</li>
+						<!-- END SERVER BAR -->
 					</ul>
 					<!-- END X-NAVIGATION VERTICAL -->

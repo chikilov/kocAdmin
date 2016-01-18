@@ -70,9 +70,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = 'koc_manage';
 $query_builder = TRUE;
 
+$arrDatabase = array(
+	'production' => array(
+
+	),
+	'staging' => array(
+		'login' => array(
+			'hostname' => 'rh-login-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78'
+		),
+		'log' => array(
+			'hostname' => 'rh-log-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+			'username' => 'webuser',
+			'password' => 'dudrud78'
+		),
+		'stage1' => array(
+			'master' => array(
+				'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+				'username' => 'webuser',
+				'password' => 'dudrud78'
+			),
+			'slave' => array(
+				'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
+				'username' => 'webuser',
+				'password' => 'dudrud78'
+			)
+		),
+		'dev2' => array(
+			'master' => array(
+				'hostname' => '101.79.109.239',
+				'username' => 'root',
+				'password' => 'dudrud'
+			),
+			'slave' => array(
+				'hostname' => '101.79.109.239',
+				'username' => 'root',
+				'password' => 'dudrud'
+			)
+		)
+	)
+);
 switch (ENVIRONMENT)
 {
 	case 'production':
@@ -84,400 +125,135 @@ switch (ENVIRONMENT)
 		$db['koc_mail'] = array();
 	break;
 	case 'staging':
-		$db['default'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_manage',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_account'] = array(
+			'hostname' => $arrDatabase[ENVIRONMENT]['login']['hostname'],
+			'username' => $arrDatabase[ENVIRONMENT]['login']['username'],
+			'password' => $arrDatabase[ENVIRONMENT]['login']['password'],
+			'database' => 'koc_account'
 		);
 
 		$db['koc_manage'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_manage',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'hostname' => $arrDatabase[ENVIRONMENT]['login']['hostname'],
+			'username' => $arrDatabase[ENVIRONMENT]['login']['username'],
+			'password' => $arrDatabase[ENVIRONMENT]['login']['password'],
+			'database' => 'koc_manage'
 		);
 
-		$db['koc_play'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_play',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_log'] = array(
+			'hostname' => $arrDatabase[ENVIRONMENT]['log']['hostname'],
+			'username' => $arrDatabase[ENVIRONMENT]['log']['username'],
+			'password' => $arrDatabase[ENVIRONMENT]['log']['password'],
+			'database' => 'koc_play'
 		);
 
-		$db['koc_account'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-login-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_account',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_play_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_play'
 		);
 
-		$db['koc_rank'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_rank',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_rank_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_rank'
 		);
 
-		$db['koc_record'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_record',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_record_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_record'
 		);
 
-		$db['koc_mail'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_mail',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_mail_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_mail'
 		);
 
-		$db['koc_ref'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-master-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_ref',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
-		);
-
-		$db['log'] = array(
-			'dsn'	=> '',
-			'hostname' => 'rh-log-stage-rds.csd7atpmn088.ap-northeast-1.rds.amazonaws.com',
-			'username' => 'webuser',
-			'password' => 'dudrud78',
-			'database' => 'koc_play',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+		$db['koc_ref_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_ref'
 		);
 	break;
 	default:
-		$db['default'] = array(
-			'dsn'	=> '',
+		$db['koc_account'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_manage',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_account'
 		);
 
 		$db['koc_manage'] = array(
-			'dsn'	=> '',
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_manage',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_manage'
 		);
 
-		$db['koc_play'] = array(
-			'dsn'	=> '',
+		$db['koc_log'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_play',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_play'
 		);
 
-		$db['koc_account'] = array(
-			'dsn'	=> '',
+		$db['koc_play_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_account',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_play'
 		);
 
-		$db['koc_rank'] = array(
-			'dsn'	=> '',
+		$db['koc_rank_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_rank',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_rank'
 		);
 
-		$db['koc_record'] = array(
-			'dsn'	=> '',
+		$db['koc_record_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_record',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_record'
 		);
 
-		$db['koc_mail'] = array(
-			'dsn'	=> '',
+		$db['koc_mail_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_mail',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_mail'
 		);
 
-		$db['koc_ref'] = array(
-			'dsn'	=> '',
+		$db['koc_ref_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',
-			'database' => 'koc_ref',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
+			'database' => 'koc_ref'
 		);
+}
 
-		$db['log'] = array(
-			'dsn'	=> '',
-			'hostname' => '101.79.109.239',
-			'username' => 'root',
-			'password' => 'dudrud',
-			'database' => 'koc_play',
-			'dbdriver' => 'mysqli',
-			'dbprefix' => '',
-			'pconnect' => FALSE,
-			'db_debug' => (ENVIRONMENT !== 'production'),
-			'cache_on' => FALSE,
-			'cachedir' => '',
-			'char_set' => 'utf8',
-			'dbcollat' => 'utf8_general_ci',
-			'swap_pre' => '',
-			'encrypt' => FALSE,
-			'compress' => FALSE,
-			'stricton' => FALSE,
-			'failover' => array(),
-			'save_queries' => TRUE
-		);
+foreach( $db as $dbkey => $dbrow )
+{
+	$db[$dbkey]['dsn']				= '';
+	$db[$dbkey]['dbdriver']			= 'mysqli';
+	$db[$dbkey]['dbprefix']			= '';
+	$db[$dbkey]['pconnect']			= FALSE;
+	$db[$dbkey]['db_debug']			= (ENVIRONMENT !== 'production');
+	$db[$dbkey]['cache_on']			= FALSE;
+	$db[$dbkey]['cachedir']			= '';
+	$db[$dbkey]['char_set']			= 'utf8';
+	$db[$dbkey]['dbcollat']			= 'utf8_general_ci';
+	$db[$dbkey]['swap_pre']			= '';
+	$db[$dbkey]['encrypt']			= FALSE;
+	$db[$dbkey]['compress']			= FALSE;
+	$db[$dbkey]['stricton']			= FALSE;
+	$db[$dbkey]['failover']			= array();
+	$db[$dbkey]['save_queries']		= TRUE;
 }

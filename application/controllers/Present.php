@@ -50,7 +50,7 @@ class Present extends MY_Controller {
 
 		$pid_arr = explode( $deli, $this->input->post('user_list') );
 
-		if ( ENVIRONMENT == 'development' || ENVIRONMENT == 'testing' )
+		if ( ENVIRONMENT == 'development' || ENVIRONMENT == 'staging' )
 		{
 			$sendAddr = $this->curServer->addr.'/koc/index.php/request/api/requestSendMail/';
 		}
@@ -81,7 +81,7 @@ class Present extends MY_Controller {
 				    curl_setopt($ch, CURLOPT_POST, true);
 				    $response = curl_exec($ch);
 				    curl_close ($ch);
-					$arrResponse = json_decode(openssl_decrypt(base64_decode($response), "aes-256-cbc", $this->config->item('encryption_key'), true, str_repeat(chr(0), 16)), true);
+					$arrResponse = json_decode($response, true);
 
 				    if($arrResponse["resultCd"]=="0200")
 					{

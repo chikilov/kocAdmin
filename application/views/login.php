@@ -54,12 +54,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$arrResponse = $arrResponse['arrResult']['server'];
 	foreach( $arrResponse as $row )
 	{
-		if ( $row['name'] == 'dev' )
-		{
-			$row['id'] = '';
-		}
 ?>
-									<option value='<?php echo json_encode($row); ?>'><?php echo $row['name']; ?></option>
+									<option value='<?php echo json_encode($row, JSON_UNESCAPED_UNICODE); ?>'><?php echo $row['name']; ?></option>
 <?php
 	}
 ?>

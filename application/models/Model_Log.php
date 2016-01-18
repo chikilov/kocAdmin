@@ -4,7 +4,7 @@ class Model_Log extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->DB = $this->load->database("log", TRUE);
+		$this->DB = $this->load->database("koc_log", TRUE);
 		/**
 		 * 기본적으로 CodeIgniter 는 트랜잭션을 완벽모드(Strict Mode)로 실행합니다.
 		 * 완벽모드가 활성화된 상태에서는 여러그룹의 트랜잭션을 실행했을때 단하나라도 실패하게되면 전체는 롤백됩니다.
