@@ -148,22 +148,6 @@ class Model_Manage extends CI_Model {
 		return $this->DB->affected_rows();
 	}
 
-	public function getTextById( $idtext )
-	{
-		$query = "select a.id, a.".$this->input->cookie('language')." ";
-		$query .= "from koc_ref.text as a left join koc_ref.ref_character as b on a.id = concat('NG_ARTICLE_', b.implement) left join koc_ref.item as c on a.id = concat('NG_ARTICLE_', c.implement) ";
-		$query .= "where a.id like '%".$idtext."%' or b.id like '%".$idtext."%' or c.id like '%".$idtext."%' order by a.id asc ";
-
-		return $this->DB->query($query, array($idtext));
-	}
-
-	public function getTextByText( $text )
-	{
-		$query = "select id, ".$this->input->cookie('language')." from koc_ref.text where ".$this->input->cookie('language')." like '%".$text."%' order by id asc ";
-
-		return $this->DB->query($query, array($text));
-	}
-
 	public function getConsultListByPid( $pid )
 	{
 		$query = "select idx, created, server, appid, nick, category, subject, if(status = 1, uname, if(status = 0, '0', concat('0_', uname))) as uname from koc_manage.consult where appid = ? order by idx desc ";
@@ -225,25 +209,6 @@ class Model_Manage extends CI_Model {
 		return $this->DB->affected_rows();
 	}
 
-	public function requestCharPresent()
-	{
-		$query = "select a.article_type, a.article_id, b.grade, c.".$this->input->cookie('language')." as ".$this->input->cookie('language')." from koc_ref.article as a ";
-		$query .= "left join koc_ref.ref_character as b on a.article_id = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', b.implement) = c.id ";
-		$query .= "where a.article_type = 'CHAR' order by c.".$this->input->cookie('language')." ";
-
-		return $this->DB->query($query);
-	}
-
-	public function requestItemPresent( $type )
-	{
-		$query = "select a.article_type, a.article_id, b.grade, if(a.article_id = 'CASH_POINTS', '구매수정', if( a.article_id = 'EVENT_POINTS', '이벤트수정', ";
-		$query .= "c.".$this->input->cookie('language').")) as ".$this->input->cookie('language')." ";
-		$query .= "from koc_ref.article as a left join koc_ref.item as b on a.article_id = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', b.implement) = c.id or concat('NG_ARTICLE_', b.id) = c.id ";
-		$query .= "where a.article_type = '".$type."' and a.article_id != 'EXP_POINTS' order by c.".$this->input->cookie('language')." ";
-
-		return $this->DB->query($query);
-	}
-
 	public function requestPresentLog( $pid, $start_date, $end_date )
 	{
 		$query = "select pid, memo, p_type, p_value, is_success, server, send_name, send_datetime from koc_manage.present_log where ";
@@ -270,39 +235,6 @@ class Model_Manage extends CI_Model {
 		$query .= "(".$pid.", '".$admin_name."', '".$gift_type."', '".$p_type."', '".$p_value."', now(), B'".$isSuccess."', '".$server_name."', '".$memo."') ";
 
 		$this->DB->query($query);
-		return $this->DB->affected_rows();
-	}
-
-	public function getaccesseventlist()
-	{
-		$query = "select a.idx, a.start_date, a.end_date, a.reg_id, a.evt_reason, (case when a.evt_category = 'ASST' then '자원' when a.evt_category = 'BCPC' then '백팩' ";
-		$query .= "when a.evt_category = 'BTIK' then '백팩뽑기권' when a.evt_category = 'CHAR' then '캐릭터' when a.evt_category = 'CTIK' then '캐릭터뽑기권' ";
-		$query .= "when a.evt_category = 'OPRT' then '오퍼레이터' when a.evt_category = 'PILT' then '파일럿' when a.evt_category = 'SKIL' then '스킬' ";
-		$query .= "when a.evt_category = 'STIK' then '스킬뽑기권' when a.evt_category = 'WEPN' then '무기' when a.evt_category = 'WTIK' then '무기뽑기권' end) as evt_category, ";
-		$query .= "concat( if(a.evt_category = 'CHAR' or a.evt_category = 'WEPN' or a.evt_category = 'SKIL' or a.evt_category = 'BCPC', ";
-		$query .= "concat('★', if(a.evt_category = 'CHAR', d.grade, c.grade)), ''), b.".$this->input->cookie('language').") as evt_target,	a.evt_value, if(a.is_valid = 0, 0, 1) as is_valid, a.reg_date ";
-		$query .= "from koc_admin.event_access as a left outer join koc_ref.text as b on concat( 'NG_ARTICLE_', a.evt_target ) = b.id ";
-		$query .= "left outer join koc_ref.item as c on a.evt_target = c.id left outer join koc_ref.ref_character as d on a.evt_target = d.id ";
-
-		return $this->DB->query($query);
-	}
-
-	public function requestAccEventInsert( $start_date, $end_date, $evt_category, $evt_target, $evt_value, $evt_reason )
-	{
-		$query = "insert into koc_admin.event_access ";
-		$query .= "( start_date, end_date, evt_category, evt_target, evt_value, evt_reason, is_valid, reg_date, reg_id ) values ";
-		$query .= "(?, ?, ?, ?, ?, ?, 1, now(), ?) ";
-
-		$this->DB->query($query, array( $start_date, $end_date, $evt_category, $evt_target, $evt_value, $evt_reason, $this->admin_id ));
-		return $this->DB->affected_rows();
-	}
-
-	public function requestAccEventStop( $idx )
-	{
-		$query = "update koc_admin.event_access set is_valid = 0, upd_date = now(), upd_id = ? ";
-		$query .= "where idx = '".$idx."' ";
-
-		$this->DB->query($query, array($this->user_id));
 		return $this->DB->affected_rows();
 	}
 }

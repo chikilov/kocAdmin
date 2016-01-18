@@ -20,14 +20,14 @@ class Present extends MY_Controller {
 
 	public function getPresentList()
 	{
-		$this->load->model('Model_Manage', 'dbManage');
+		$this->load->model('Model_Ref', 'dbRef');
 		if ( $this->input->post('type') == 'CHAR' )
 		{
-			$arrResult = $this->dbManage->requestCharPresent()->result_array();
+			$arrResult = $this->dbRef->requestCharPresent()->result_array();
 		}
 		else
 		{
-			$arrResult = $this->dbManage->requestItemPresent( $this->input->post('type') )->result_array();
+			$arrResult = $this->dbRef->requestItemPresent( $this->input->post('type') )->result_array();
 		}
 		echo json_encode( $arrResult, JSON_UNESCAPED_UNICODE );
 	}

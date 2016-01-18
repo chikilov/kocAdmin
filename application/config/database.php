@@ -180,6 +180,13 @@ switch (ENVIRONMENT)
 			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
 			'database' => 'koc_ref'
 		);
+
+		$db['koc_admin_master'] = array(
+			'hostname' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['hostname'] : $arrDatabase[ENVIRONMENT][0]['master']['hostname']),
+			'username' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['username'] : $arrDatabase[ENVIRONMENT][0]['master']['username']),
+			'password' => (array_key_exists('server_name', $_COOKIE) ? $arrDatabase[ENVIRONMENT][json_decode($_COOKIE['server_name'], true)['name']]['master']['password'] : $arrDatabase[ENVIRONMENT][0]['master']['password']),
+			'database' => 'koc_ref'
+		);
 	break;
 	default:
 		$db['koc_account'] = array(
@@ -232,6 +239,13 @@ switch (ENVIRONMENT)
 		);
 
 		$db['koc_ref_master'] = array(
+			'hostname' => '101.79.109.239',
+			'username' => 'root',
+			'password' => 'dudrud',
+			'database' => 'koc_ref'
+		);
+
+		$db['koc_admin_master'] = array(
 			'hostname' => '101.79.109.239',
 			'username' => 'root',
 			'password' => 'dudrud',

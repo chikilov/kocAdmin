@@ -72,6 +72,41 @@ class Model_Ref extends CI_Model {
 		}
 	}
 
+	public function getTextById( $idtext )
+	{
+		$query = "select a.id, a.".$this->input->cookie('language')." ";
+		$query .= "from koc_ref.text as a left join koc_ref.ref_character as b on a.id = concat('NG_ARTICLE_', b.implement) left join koc_ref.item as c on a.id = concat('NG_ARTICLE_', c.implement) ";
+		$query .= "where a.id like '%".$idtext."%' or b.id like '%".$idtext."%' or c.id like '%".$idtext."%' order by a.id asc ";
+
+		return $this->DB->query($query, array($idtext));
+	}
+
+	public function getTextByText( $text )
+	{
+		$query = "select id, ".$this->input->cookie('language')." from koc_ref.text where ".$this->input->cookie('language')." like '%".$text."%' order by id asc ";
+
+		return $this->DB->query($query, array($text));
+	}
+
+	public function requestCharPresent()
+	{
+		$query = "select a.article_type, a.article_id, b.grade, c.".$this->input->cookie('language')." as ".$this->input->cookie('language')." from koc_ref.article as a ";
+		$query .= "left join koc_ref.ref_character as b on a.article_id = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', b.implement) = c.id ";
+		$query .= "where a.article_type = 'CHAR' order by c.".$this->input->cookie('language')." ";
+
+		return $this->DB->query($query);
+	}
+
+	public function requestItemPresent( $type )
+	{
+		$query = "select a.article_type, a.article_id, b.grade, if(a.article_id = 'CASH_POINTS', '구매수정', if( a.article_id = 'EVENT_POINTS', '이벤트수정', ";
+		$query .= "c.".$this->input->cookie('language').")) as ".$this->input->cookie('language')." ";
+		$query .= "from koc_ref.article as a left join koc_ref.item as b on a.article_id = b.id left outer join koc_ref.text as c on concat('NG_ARTICLE_', b.implement) = c.id or concat('NG_ARTICLE_', b.id) = c.id ";
+		$query .= "where a.article_type = '".$type."' and a.article_id != 'EXP_POINTS' order by c.".$this->input->cookie('language')." ";
+
+		return $this->DB->query($query);
+	}
+
 	public function getgatchainfo( $pid )
 	{
 		$query = "select a.result_date, c.".$this->input->cookie('language')." as gatcha, ";

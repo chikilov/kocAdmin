@@ -131,13 +131,13 @@ class Adminmain extends MY_Controller {
 	{
 		if ( $this->input->post('idtext') )
 		{
-			$this->load->model('Model_Manage', 'dbManage');
-			$arrResult = $this->dbManage->getTextById( $this->input->post('idtext') )->result_array();
+			$this->load->model('Model_Ref', 'dbRef');
+			$arrResult = $this->dbRef->getTextById( $this->input->post('idtext') )->result_array();
 		}
 		else if ( $this->input->post('text') )
 		{
-			$this->load->model('Model_Manage', 'dbManage');
-			$arrResult = $this->dbManage->getTextByText( $this->input->post('text') )->result_array();
+			$this->load->model('Model_Ref', 'dbRef');
+			$arrResult = $this->dbRef->getTextByText( $this->input->post('text') )->result_array();
 		}
 		else if ( $this->input->post('char') )
 		{

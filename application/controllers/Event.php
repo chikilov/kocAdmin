@@ -17,9 +17,9 @@ class Event extends MY_Controller {
 
 	public function getaccesseventlist()
 	{
-		$this->load->model('Model_Manage', 'dbManage');
+		$this->load->model('Model_Admin', 'dbAdmin');
 
-		$arrResult = $this->dbManage->getaccesseventlist()->result_array();
+		$arrResult = $this->dbAdmin->getaccesseventlist()->result_array();
 		echo json_encode( $arrResult, JSON_UNESCAPED_UNICODE );
 	}
 
@@ -33,8 +33,8 @@ class Event extends MY_Controller {
 
 	public function accesseventinsert()
 	{
-		$this->load->model('Model_Manage', 'dbManage');
-		if ( $this->dbManage->requestAccEventInsert( $this->input->post('start_date'), $this->input->post('end_date'), $this->input->post('evt_category'), $this->input->post('evt_target'), $this->input->post('evt_value'), $this->input->post('evt_reason') ) )
+		$this->load->model('Model_Admin', 'dbAdmin');
+		if ( $this->dbAdmin->requestAccEventInsert( $this->input->post('start_date'), $this->input->post('end_date'), $this->input->post('evt_category'), $this->input->post('evt_target'), $this->input->post('evt_value'), $this->input->post('evt_reason') ) )
 		{
 			echo 1;
 		}
