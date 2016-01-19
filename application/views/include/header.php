@@ -399,9 +399,9 @@
 							<ul id="lang_sel" class="xn-drop-left xn-drop-white animated zoomIn">
 								<li><a style="cursor: pointer;"><span class="flag flag-kr"></span>한국어</a></li>
 								<li><a style="cursor: pointer;"><span class="flag flag-en"></span>영어</a></li>
-								<li><a style="cursor: pointer;"><span class="flag flag-jp"></span>일본어</a></li>
+								<!--<li><a style="cursor: pointer;"><span class="flag flag-jp"></span>일본어</a></li>
 								<li><a style="cursor: pointer;"><span class="flag flag-cn"></span>중국어</a></li>
-								<li><a style="cursor: pointer;"><span class="flag flag-tw"></span>대만어</a></li>
+								<li><a style="cursor: pointer;"><span class="flag flag-tw"></span>대만어</a></li>-->
 							</ul>
 						</li>
 						<!-- END LANG BAR -->
