@@ -237,5 +237,20 @@ class Model_Manage extends CI_Model {
 		$this->DB->query($query);
 		return $this->DB->affected_rows();
 	}
+
+	public function getadminlist()
+	{
+		$query = "select admin_id, admin_name, admin_depart, admin_email, admin_hp, last_login from koc_manage.admin_master ";
+
+		return $this->DB->query($query);
+	}
+
+	public function postadmin( $admin_id, $admin_name, $admin_depart, $admin_email, $admin_hp )
+	{
+		$query = "update koc_manage.admin_master set admin_name = ?, admin_depart = ?, admin_email = ?, admin_hp = ? where admin_id = ? ";
+
+		$this->DB->query($query, array( $admin_name, $admin_depart, $admin_email, $admin_hp, $admin_id ));
+		return $this->DB->affected_rows();
+	}
 }
 ?>

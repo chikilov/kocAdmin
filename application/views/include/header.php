@@ -206,7 +206,7 @@
 								<a href="#"><span class="fa fa-sort-numeric-asc"></span>실시간 랭킹</a>
 								<ul>
 									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvprankthis"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
-									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbrankthis"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
+									<!--<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbrankthis"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>-->
 									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/survivalrankthis"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
 								</ul>
 							</li>
@@ -214,7 +214,7 @@
 								<a href="#"><span class="fa fa-sort-numeric-asc"></span>지난 랭킹 조회</a>
 								<ul>
 									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvpranklast"><span class="fa fa-sort-numeric-asc"></span>PVP 랭킹</a></li>
-									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbranklast"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>
+									<!--<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/pvbranklast"><span class="fa fa-sort-numeric-asc"></span>PVB 랭킹</a></li>-->
 									<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/rank/survivalranklast"><span class="fa fa-sort-numeric-asc"></span>생존전 랭킹 </a></li>
 								</ul>
 							</li>
@@ -228,7 +228,7 @@
 							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/explorationlog"><span class="fa fa-file-o"></span>탐색 로그</a></li>
 							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvelog"><span class="fa fa-file-o"></span>행성전 로그</a></li>
 							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvplog"><span class="fa fa-file-o"></span>일대일 로그</a></li>
-							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvblog"><span class="fa fa-file-o"></span>보스전 로그</a></li>
+							<!--<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/pvblog"><span class="fa fa-file-o"></span>보스전 로그</a></li>-->
 							<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/history/survivallog"><span class="fa fa-file-o"></span>생존모드 로그</a></li>
 						</ul>
 					</li>
@@ -288,19 +288,19 @@
 						</ul>
 					</li>-->
 					<li class="xn-title">Admin</li>
-						<li class="xn-openable">
+						<!--<li class="xn-openable">
 							<a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">공지관리</span></a>
 							<ul>
 								<li><a href="admin_notice.php"><span class="fa fa-image"></span>공지사항</a></li>
-								<!--<li><a href="admin_event.php"><span class="fa fa-dollar"></span>이벤트</a></li>-->
+								<li><a href="admin_event.php"><span class="fa fa-dollar"></span>이벤트</a></li>
 								<li><a href="image_banner.php"><span class="fa fa-wrench"></span>이미지 배너</a></li>
-								<!--<li><a href="board.php"><span class="fa fa-image"></span>게시판</a></li>-->
+								<li><a href="board.php"><span class="fa fa-image"></span>게시판</a></li>
 							</ul>
-						</li>
+						</li>-->
 						<li class="xn-openable">
 							<a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">권한관리</span></a>
 							<ul>
-								<li><a href="admin_edit.php"><span class="fa fa-image"></span>아이디관리</a></li>
+								<li><a href="/<?php echo ROOTPATH; ?>/index.php/admin/adminmain/manage"><span class="fa fa-image"></span>아이디관리</a></li>
 								<!--<li><a href="#"><span class="fa fa-dollar"></span>로그조회</a></li>-->
 							</ul>
 						</li>
@@ -388,7 +388,7 @@
 								<div class="panel-body list-group scroll" style="height: 200px;">
 									<div id="consult"></div>
 								</div>
-								<div class="panel-footer text-center"><a href="./consult.php">1:1 문의 보기</a></div>
+								<div class="panel-footer text-center"><a href="/<?php echo ROOTPATH; ?>/index.php/admin/customer/consult">1:1 문의 보기</a></div>
 							</div>
 						</li>
 						<!-- END TASKS -->

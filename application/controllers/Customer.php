@@ -14,7 +14,7 @@ class Customer extends MY_Controller {
 
 		foreach( $arrResult as $row )
 		{
-			echo "<a class=\"list-group-item\" href=\"./consult_result.php?idx=".$row['idx']."\">";
+			echo "<a class=\"list-group-item\" href=\"/".ROOTPATH."/index.php/admin/customer/consultview/".$row['idx']."\">";
 			echo "<span class=\"contacts-title\">".$row['server']." ".$row['category']." | </span>";
 		    echo "<strong>".iconv_substr($row['subject'], 0, 20, 'UTF-8')."</strong>";
 		    echo "<div><small class=\"text-muted\">".$row['nick']." ".$row['created']."</small></div>";
@@ -41,10 +41,10 @@ class Customer extends MY_Controller {
 		$this->load->view('include/footer');
 	}
 
-	public function consultView()
+	public function consultView( $idx )
 	{
 		$this->load->model('Model_Manage', 'dbManage');
-		$arrResult1 = $this->dbManage->getConsultInfo( $this->input->get('idx') )->result_array();
+		$arrResult1 = $this->dbManage->getConsultInfo( $idx )->result_array();
 		if ( empty($arrResult1) )
 		{
 			redirect('/admin/customer/consult');
@@ -54,7 +54,7 @@ class Customer extends MY_Controller {
 			$arrResult1 = $arrResult1[0];
 		}
 
-		$arrResult2 = $this->dbManage->getConsultAnswerInfo( $this->input->get('idx') )->result_array();
+		$arrResult2 = $this->dbManage->getConsultAnswerInfo( $idx )->result_array();
 		if ( !empty($arrResult2) )
 		{
 			$arrResult2 = $arrResult2[0];
