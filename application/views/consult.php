@@ -28,7 +28,7 @@
 									{"data" : "nick"},
 									{"data" : "category"},
 									{"className": "clicksubject", "data" : "subject", "render": function ( data, type, row, meta ) {
-										return "<a href=\"/kocAdmin/index.php/admin/customer/consultview?idx=" + row.idx + "\">" + data + "</a>";
+										return "<a href=\"/kocAdmin/index.php/admin/customer/consultview/" + row.idx + "\">" + data + "</a>";
 									}},
 									{"data" : "uname", "render": function ( data, type, row, meta ) {
 										if ( data == '0' )
