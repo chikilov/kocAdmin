@@ -40,7 +40,7 @@
 										</div>
 										<div class="panel-body">
 											<div class="table-responsive">
-												<table class="display table table-striped" id="user_block">
+												<table class="table datatable table-striped" id="user_block">
 													<thead>
 														<tr>
 															<th style="width: 20%">정지시간</th>

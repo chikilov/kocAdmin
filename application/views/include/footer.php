@@ -52,45 +52,6 @@
 				</div>
 			</div>
 			<!-- MODALS -->
-			<!-- MODALS -->
-			<div class="modal" id="modal_admin" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<form class="form_block" role="form_block" action="/" method="post" id="form_admin">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-							<h4 class="modal-title" id="defModalHead">관리자 정보 변경</h4>
-						</div>
-						<div class="modal-body form-group">
-							<div class="form-group">
-								<label>ID</label>&nbsp;:&nbsp;<label id="admin_id">NAME</label>
-							</div>
-							<div class="form-group">
-								<label>NAME</label>
-								<input type="text" name="admin_name" class="form-control" value="" />
-							</div>
-							<div class="form-group">
-								<label>NAME</label>
-								<input type="text" name="admin_depart" class="form-control" value="" />
-							</div>
-							<div class="form-group">
-								<label>NAME</label>
-								<input type="text" name="admin_email" class="form-control" value="" />
-							</div>
-							<div class="form-group">
-								<label>NAME</label>
-								<input type="text" name="admin_hp" class="form-control" value="" />
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success disabled" >Send</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- MODALS -->
 			<div class="modal" id="modal_restore" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">

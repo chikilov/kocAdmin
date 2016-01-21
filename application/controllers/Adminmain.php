@@ -185,33 +185,4 @@ class Adminmain extends MY_Controller {
 
 		echo json_encode($arrResult, JSON_UNESCAPED_UNICODE);
 	}
-
-	public function manage()
-	{
-		$this->load->view('include/head');
-		$this->load->view('include/header');
-		$this->load->view('manage');
-		$this->load->view('include/footer');
-	}
-
-	public function getadminlist()
-	{
-		$this->load->model('Model_Manage', 'dbManage');
-		$arrResult = $this->dbManage->getadminlist()->result_array();
-
-		echo json_encode($arrResult, JSON_UNESCAPED_UNICODE);
-	}
-
-	public function updateadmin()
-	{
-		$this->load->model('Model_Manage', 'dbManage');
-		if ( $this->dbManage->postadmin( $this->input->post('admin_id'), $this->input->post('admin_name'), $this->input->post('admin_depart'), $this->input->post('admin_email'), $this->input->post('admin_hp') ) )
-		{
-			echo '1';
-		}
-		else
-		{
-			echo '0';
-		}
-	}
 }
