@@ -9,7 +9,7 @@
 										<div>
 											<div class="widget-title">DAU</div>
 											<div class="widget-subtitle plugin-date"></div>
-											<div class="widget-int"><?echo number_format($dau)?></div>
+											<div class="widget-int"><?php echo number_format($dau); ?></div>
 										</div>
 									</div>
 									<div class="widget-controls">
@@ -25,7 +25,7 @@
 									<div class="widget-data">
 										<div class="widget-title">신규 가입 유저</div>
 										<div class="widget-subtitle">Robot Heroes</div>
-										<div class="widget-int num-count"><?echo number_format($todaynew)?></div>
+										<div class="widget-int num-count"><?php echo number_format($todaynew); ?></div>
 									</div>
 									<div class="widget-controls">
 										<a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
