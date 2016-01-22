@@ -326,7 +326,7 @@
 						<!-- END TOGGLE NAVIGATION -->
 						<!-- SEARCH -->
 						<li class="xn-search">
-							<form role="form" id="pForm" action="user_basic.php" method="get">
+							<form role="form" id="pForm" action="/<?php echo ROOTPATH; ?>/index.php/admin/player/playerinfo" method="post">
 								<input type="text" name="pid" placeholder="pid..." />
 							</form>
 						</li>

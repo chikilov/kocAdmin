@@ -91,7 +91,7 @@ class Model_Play extends CI_Model {
 		$query = "select a.idx, a.pid, if(c.".$this->input->cookie('language')." = '' or c.".$this->input->cookie('language')." is null, ";
 		$query .= "a.refid, c.".$this->input->cookie('language').") as ".$this->input->cookie('language').", a.grade, a.level, a.exp, a.up_grade, a.weapon, a.backpack, a.skill_0, a.skill_1, a.skill_2, ";
 		$query .= "if(a.is_del=0,'생존','소멸') as is_del, a.reg_date, a.del_date from koc_play.player_character as a left outer join koc_ref.ref_character as b on a.refid = b.id ";
-		$query .= "left outer join koc_manage.text as c on c.id = concat('NG_ARTICLE_', b.implement) where a.idx = ? ";
+		$query .= "left outer join koc_ref.text as c on c.id = concat('NG_ARTICLE_', b.implement) where a.idx = ? ";
 
 		return $this->DB->query($query, array($cid));
 	}
