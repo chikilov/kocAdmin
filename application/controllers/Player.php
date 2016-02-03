@@ -137,7 +137,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('playerinfo', array('accountInfo' => $arrResult1, 'basicInfo' => $arrResult2, 'rankInfo' => $arrResult3, 'maxInfo' => $arrResult4, 'itemInfo' => $arrResult5, 'teamInfo' => $arrResult6, 'stageInfo' => $arrResult7, 'collection' => $arrResult8, 'operator' => $arrResult9));
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function charinfo()
@@ -147,7 +147,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('charinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function inventoryinfo()
@@ -157,7 +157,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('inventoryinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function pilotinfo()
@@ -167,7 +167,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('pilotinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function operatorinfo()
@@ -177,7 +177,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('operatorinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function playinfo()
@@ -187,7 +187,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('playinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function friendinfo()
@@ -197,7 +197,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('friendinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function achieveinfo()
@@ -207,7 +207,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('achieveinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function gatchainfo()
@@ -217,7 +217,7 @@ class Player extends MY_Controller {
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('include/subtab_detail');
 		$this->load->view('gatchainfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getcharinfo()

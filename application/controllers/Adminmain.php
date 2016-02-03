@@ -9,6 +9,8 @@ class Adminmain extends MY_Controller {
 
 	public function index()
 	{
+//		$this->load->library('countriesarray');
+//		print_r($this->countriesarray->countries);
 		$this->load->model('Model_Account', 'dbAccount');
 		$arrResult = $this->dbAccount->requestTodayNew()->result_array();
 		if ( empty($arrResult) )
@@ -32,7 +34,7 @@ class Adminmain extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header', array( 'todaynew' => $todaynew, 'dau' => $dau ));
 		$this->load->view('index');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function userinfo()
@@ -44,7 +46,7 @@ class Adminmain extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header', array( 'comTemplete' => $comTemplete, 'indTemplete' => $indTemplete ));
 		$this->load->view('userinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function blockinfo()
@@ -53,7 +55,7 @@ class Adminmain extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('blocklist');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function accountinfo()
@@ -62,7 +64,7 @@ class Adminmain extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'select' ), 'stype' => $this->stype, 'svalue' => $this->svalue));
 		$this->load->view('accountlist');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function templeteModify()
@@ -191,7 +193,7 @@ class Adminmain extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header');
 		$this->load->view('manage');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getadminlist()

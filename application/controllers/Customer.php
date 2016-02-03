@@ -38,7 +38,7 @@ class Customer extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name' ), 'pid' => $this->pid, 'name' => $this->name));
 		$this->load->view('consult');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function consultView( $idx )
@@ -67,7 +67,7 @@ class Customer extends MY_Controller {
 		$this->load->view('include/header');
 
 		$this->load->view('consultview', array('pid' => $arrResult1['appid'], 'question' => $arrResult1, 'answer' => $arrResult2, 'comTemp' => $arrResult3, 'indTemp' => $arrResult4));
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function consultList()

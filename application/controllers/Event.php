@@ -12,7 +12,7 @@ class Event extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header');
 		$this->load->view('accesseventlist');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getaccesseventlist()
@@ -28,7 +28,7 @@ class Event extends MY_Controller {
 		$this->load->view('include/head');
 		$this->load->view('include/header');
 		$this->load->view('accesseventwrite');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function accesseventinsert()

@@ -13,7 +13,7 @@ class Payment extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('chargeinfo');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function cashlog()
@@ -22,7 +22,7 @@ class Payment extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('cashlog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getchargeinfo()

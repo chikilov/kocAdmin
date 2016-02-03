@@ -153,5 +153,11 @@ class Model_Ref extends CI_Model {
 
 		return $this->DB->query($query, array($id));
 	}
+
+	public function temp( $code )
+	{
+		$query = "select kr from tempiso where idx = ".$code;
+		return $this->DB->query($query);
+	}
 }
 ?>

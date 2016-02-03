@@ -32,11 +32,11 @@
 						</div>
 						<div class="modal-body form-group">
 							<div class="user">
-								<div class="name">PID : <?=$pid?>  | NAME : <?=$name?> </div>
+								<div class="name">PID : <?php echo $pid; ?>  | NAME : <?php echo $name; ?> </div>
 							</div>
 							<div class="form-group">
 								<label>사유</label>
-								<input name="pid" type="hidden" value="<?=$pid?>" />
+								<input name="pid" type="hidden" value="<?php echo $pid; ?>" />
 								<input name="type" type="hidden" value="R" />
 								<input name="text" type="text" class="form-control" placeholder="정지 사유를 입력하세요."/>
 							</div>
@@ -101,11 +101,11 @@
 						</div>
 						<div class="modal-body form-group">
 							<div class="user">
-								<div class="name">PID : <?=$pid?>  | NAME : <?=$name?> </div>
+								<div class="name">PID : <?php echo $pid; ?>  | NAME : <?php echo $name; ?> </div>
 							</div>
 							<div class="form-group">
 								<label>사유</label>
-								<input name="pid" type="hidden" value="<?=$pid?>" />
+								<input name="pid" type="hidden" value="<?php echo $pid; ?>" />
 								<input name="type" type="hidden" value="X" />
 								<input name="text" type="text" class="form-control" placeholder="해지 사유를 입력하세요."/>
 							</div>

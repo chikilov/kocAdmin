@@ -13,7 +13,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'datetime' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'start_time' => $this->start_time, 'end_date' => $this->end_date, 'end_time' => $this->end_time));
 		$this->load->view('basiclog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getbasiclog()
@@ -37,7 +37,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'datetime' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'start_time' => $this->start_time, 'end_date' => $this->end_date, 'end_time' => $this->end_time));
 		$this->load->view('gatchalog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getgatchalog()
@@ -61,7 +61,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('explorationlog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getexplorationlog()
@@ -85,7 +85,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('pvelog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getpvelog()
@@ -109,7 +109,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('pvplog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getpvplog()
@@ -133,7 +133,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('pvblog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getpvblog()
@@ -157,7 +157,7 @@ class History extends MY_Controller {
 		$this->load->view('include/header');
 		$this->load->view('include/subsearchbar', array('searchtype' => array( 'pid', 'name', 'date' ), 'pid' => $this->pid, 'name' => $this->name, 'start_date' => $this->start_date, 'end_date' => $this->end_date));
 		$this->load->view('survivallog');
-		$this->load->view('include/footer');
+		$this->load->view('include/footer', array( 'pid' => $this->pid, 'name' => $this->name ));
 	}
 
 	public function getsurvivallog()
